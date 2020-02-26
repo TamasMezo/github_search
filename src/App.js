@@ -21,6 +21,7 @@ class App extends Component {
         <Route path="/signup" exact component={SignUp} />
         <Route path="/main" exact component={Main} />
         <Route path="/logout" exact component={Logout} />
+        <Redirect to="/" />
       </Switch>
     );
     return <div>{routes}</div>;
