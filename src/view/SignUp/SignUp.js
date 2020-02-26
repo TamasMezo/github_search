@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Form from "../../components/Form/Form";
+import * as actions from "../../actions/actions";
 
 import "./SignUp.css";
 
@@ -51,7 +52,7 @@ class SignUp extends Component {
         passwordWarning: false,
         nameWarning: false
       });
-      console.log("form", form);
+      actions.signUp(form.email, form.password, form.name);
     }
   };
 

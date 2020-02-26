@@ -19,7 +19,7 @@ const form = props => {
             <span className="warningMsg">Kérjük add meg az email címed!</span>
           ) : null}
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={props.handleChange("password")}
           />
