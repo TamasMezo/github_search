@@ -19,8 +19,12 @@ export const signUp = (email, password, name) => {
       localStorage.setItem("token", response.data.idToken);
       localStorage.setItem("expirationDate", expirationDate);
       localStorage.setItem("userId", response.data.localId);
+      localStorage.setItem("email", email);
+      localStorage.setItem("name", name);
+      return true;
     })
     .catch(error => {
       console.log("Error while authenticate!", error);
+      throw new Error(error);
     });
 };
