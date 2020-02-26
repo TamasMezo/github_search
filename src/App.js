@@ -12,18 +12,38 @@ class App extends Component {
     isSignedIn: false
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    let email = localStorage.getItem("email");
+    let token = localStorage.getItem("token");
+    let userId = localStorage.getItem("userId");
+
+    if (email && token && userId) {
+      this.setState({
+        isSignedIn: true
+      });
+    }
+  }
 
   render() {
     let routes = (
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
-        <Route path="/main" exact component={Main} />
         <Route path="/logout" exact component={Logout} />
         <Redirect to="/" />
       </Switch>
     );
+    if (this.state.isSignedIn) {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={Login} />
+          <Route path="/signup" exact component={SignUp} />
+          <Route path="/main" exact component={Main} />
+          <Route path="/logout" exact component={Logout} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
     return <div>{routes}</div>;
   }
 }
