@@ -1,14 +1,30 @@
-import React from "react";
+import React, { Component } from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import "./App.css";
 
-import Login from "./view/Login";
+import Login from "./view/Login/Login";
+import SignUp from "./view/SignUp/SignUp";
+import Main from "./view/Main/Main";
+import Logout from "./view/Logout/Logout";
 
-function App() {
-  return (
-    <>
-      <Login />
-    </>
-  );
+class App extends Component {
+  state = {
+    isSignedIn: false
+  };
+
+  componentDidMount() {}
+
+  render() {
+    let routes = (
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/signup" exact component={SignUp} />
+        <Route path="/main" exact component={Main} />
+        <Route path="/logout" exact component={Logout} />
+      </Switch>
+    );
+    return <div>{routes}</div>;
+  }
 }
 
-export default App;
+export default withRouter(App);
