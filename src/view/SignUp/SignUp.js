@@ -32,7 +32,7 @@ class SignUp extends Component {
     console.log("state", this.state);
   };
 
-  logIn = async () => {
+  logIn = () => {
     let form = this.state.form;
     if (form.email.length === 0) {
       this.setState({
@@ -57,7 +57,8 @@ class SignUp extends Component {
         loading: true,
         redirectToMain: true
       });
-      actions.signUp(form.email, form.password, form.name);
+      let signUp = true;
+      actions.signUp(form.email, form.password, form.name, signUp);
     }
   };
 

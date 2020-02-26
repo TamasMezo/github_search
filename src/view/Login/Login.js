@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Form from "../../components/Form/Form";
+import * as actions from "../../actions/actions";
+import Spinner from "../../components/Spinner/Spinner";
+import { Redirect } from "react-router-dom";
 
 import "./Login.css";
 
@@ -10,7 +13,8 @@ class Login extends Component {
       password: ""
     },
     emailWarning: false,
-    passwordWarning: false
+    passwordWarning: false,
+    redirectToMain: false
   };
 
   componentDidMount() {}
@@ -40,17 +44,26 @@ class Login extends Component {
     } else {
       this.setState({
         emailWarning: false,
-        passwordWarning: false
+        passwordWarning: false,
+        loading: true,
+        redirectToMain: true
       });
-      console.log("form", form);
+      let signUp = false;
+      actions.signUp(form.email, form.password, form.name, signUp);
     }
   };
 
   render() {
-    let { emailWarning, passwordWarning } = this.state;
+    let { emailWarning, passwordWarning, redirectToMain, loading } = this.state;
+    let spinner;
+    if (loading) {
+      spinner = <Spinner />;
+    }
     return (
       <div className="container">
         <div className="card-container">
+          {spinner}
+          {redirectToMain === true ? <Redirect to="/main" /> : null}
           <Form
             handleChange={this.handleChange}
             logIn={this.logIn}
