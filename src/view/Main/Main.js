@@ -5,16 +5,13 @@ import "./Main.css";
 
 class Main extends Component {
   state = {
-    name: "",
     email: "",
     isLogout: false
   };
 
   componentDidMount() {
-    let name = localStorage.getItem("name");
     let email = localStorage.getItem("email");
     this.setState({
-      name: name,
       email: email
     });
   }
@@ -26,12 +23,11 @@ class Main extends Component {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
     localStorage.removeItem("userId");
-    localStorage.removeItem("name");
     localStorage.removeItem("email");
   };
 
   render() {
-    const { name, isLogout } = this.state;
+    const { email, isLogout } = this.state;
     return (
       <div className="container">
         {isLogout === true ? <Redirect to="/logout" /> : null}
@@ -39,7 +35,7 @@ class Main extends Component {
           <Button clicked={this.signOut}> Sign Out</Button>
         </div>
         <div className="greeting">
-          <span>Welcome, {name}</span>
+          <span>Welcome, {email}</span>
           <p>Successfull Sign In!</p>
         </div>
       </div>

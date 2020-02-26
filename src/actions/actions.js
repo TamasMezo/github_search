@@ -25,7 +25,6 @@ export const signUp = (email, password, name, isSignUp) => {
       localStorage.setItem("expirationDate", expirationDate);
       localStorage.setItem("userId", response.data.localId);
       localStorage.setItem("email", email);
-      localStorage.setItem("name", name);
       return true;
     })
     .catch(error => {
