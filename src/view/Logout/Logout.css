@@ -1,0 +1,21 @@
+.lg-container {
+  background-color: rgb(146, 141, 141);
+  text-align: center;
+  top: 0;
+  height: 105vh;
+}
+
+.label-continer {
+  padding: 80px;
+}
+
+.label-continer p {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+
+.image-container img {
+  width: 35%;
+}
