@@ -1,0 +1,59 @@
+.Button {
+  background-color: #383742;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.Button:first-of-type {
+  padding: 10px 40px;
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.Success {
+  font-family: "Permanent Marker", cursive;
+  background-color: #5c9210;
+  color: #fff;
+}
+
+.Success:hover {
+  background-color: #fff;
+  border: #5c9210;
+  color: #5c9210;
+}
+
+.Success:active {
+  animation: enable 0.3s linear;
+}
+
+.Danger {
+  font-family: "Permanent Marker", cursive;
+  background-color: #944317;
+  color: #fff;
+}
+
+.Danger:hover {
+  background-color: #9e9790;
+  color: #944317;
+}
+
+.Attention {
+  font-family: "Permanent Marker", cursive;
+  background-color: #9e6419;
+  color: #fff;
+}
+
+.Attention:hover {
+  background-color: #d1d1d1;
+  color: #9e6419;
+}
