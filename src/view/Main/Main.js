@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as gitHubActions from "../../actions/github.actions";
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
+import RenderItem from "../../components/RenderItem/RenderItem";
 import "./Main.css";
 
 class Main extends Component {
@@ -86,6 +87,13 @@ class Main extends Component {
     });
   };
 
+  chooseRepo = repo => {
+    this.setState({
+      selectedRepo: repo,
+      showList: false
+    });
+  };
+
   render() {
     const {
       email,
@@ -120,15 +128,18 @@ class Main extends Component {
           <div>
             {foundRepos.map(repo => {
               return (
-                <div>
-                  <span>{repo.name}</span>
-                </div>
+                <RenderItem
+                  key={repo.id}
+                  repoName={repo.name}
+                  onClick={this.chooseRepo.bind(this, repo)}
+                />
               );
             })}
           </div>
         </Modal>
       );
     }
+    console.log("state", this.state);
     return (
       <div className="container">
         {isLogout === true ? <Redirect to="/logout" /> : null}
@@ -158,12 +169,21 @@ class Main extends Component {
               <Button clicked={this.search}> Find repo!</Button>
               {loading === true ? <Spinner /> : null}
             </div>
+            <div>Count of items: {count}</div>
             <div className="step">
               <div>
-                <span>List of repositories matched by the search.</span>
+                <span>Selected Repository:</span>
                 <div className="search-result">
-                  <span>Count of items: {count}</span>
-                  <span>Selected repository: {selectedRepo} </span>
+                  {selectedRepo && (
+                    <>
+                      <span>Selected repository data: </span>
+                      <span> Name: {selectedRepo.name}</span>
+                      <span> Owner: {selectedRepo.owner.login}</span>
+                      <span> Url: {selectedRepo.html_url}</span>
+                      <span> Forks: {selectedRepo.forks}</span>
+                      <span> Open issues: {selectedRepo.open_issues}</span>
+                    </>
+                  )}
                 </div>
                 <Button clicked={this.signOut}> Check repo details</Button>
               </div>
