@@ -15,5 +15,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70%;
+  height: 100%;
+}
+
+@media (max-width: 1050px) {
+  .card-container {
+    height: 85%;
+  }
 }

@@ -26,3 +26,46 @@
   font-size: 22px;
   color: #fff;
 }
+
+.app-container {
+  width: 100%;
+  height: 80%;
+  bottom: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app {
+  background-color: #fff;
+  width: 50%;
+  border-radius: 3px;
+  box-shadow: 2px 1px 1px grey;
+  height: 90%;
+}
+
+.input {
+  width: 25%;
+  margin: 10px 0px;
+  border: none;
+  background-color: #ccc;
+  height: 30px;
+  border-radius: 2px;
+}
+
+.first-step {
+  height: 20%;
+  padding: 20px;
+}
+
+.first-step div {
+  margin-bottom: 30px;
+}
+
+.first-step div span {
+  color: rgb(71, 67, 67);
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 30px;
+}

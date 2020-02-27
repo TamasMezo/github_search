@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Form from "../../components/Form/Form";
-import * as actions from "../../actions/actions";
+import * as actions from "../../actions/auth.actions";
 import Spinner from "../../components/Spinner/Spinner";
 import { Redirect } from "react-router-dom";
 
