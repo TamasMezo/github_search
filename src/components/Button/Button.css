@@ -9,6 +9,7 @@
   padding: 10px;
   margin: 10px;
   font-weight: bold;
+  min-width: 140px;
 }
 
 .Button:first-of-type {

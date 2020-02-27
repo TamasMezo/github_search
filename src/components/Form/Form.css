@@ -1,13 +1,23 @@
 .card {
   background-color: #fcfcfc;
-  height: 60%;
+  height: 70%;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 30%;
+  width: 25%;
+}
+
+.card-title {
+  height: 25%;
 }
 
 .card h2 {
   color: #5d6063;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.form-container {
+  height: 40%;
 }
 
 .input-container {
@@ -15,7 +25,6 @@
   flex-direction: column;
   align-items: center;
   margin: 40px 0px;
-  height: 40%;
   justify-content: center;
 }
 
@@ -43,4 +52,11 @@
 .warningMsg {
   color: red;
   font-size: 8px;
+}
+
+@media (max-width: 1050px) {
+  .card {
+    width: 35%;
+    height: 90%;
+  }
 }

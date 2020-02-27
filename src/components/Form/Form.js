@@ -5,10 +5,10 @@ import "./Form.css";
 const form = props => {
   return (
     <div className="card">
-      <div>
+      <div className="card-title">
         <h2>Github Search</h2>
       </div>
-      <div>
+      <div className="form-container">
         <form className="input-container" action="">
           <input
             type="text"
