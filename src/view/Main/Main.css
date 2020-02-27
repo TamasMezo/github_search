@@ -54,18 +54,23 @@
   border-radius: 2px;
 }
 
-.first-step {
+.step {
   height: 20%;
   padding: 20px;
 }
 
-.first-step div {
-  margin-bottom: 30px;
-}
-
-.first-step div span {
+.step div span {
   color: rgb(71, 67, 67);
   font-size: 18px;
   font-weight: 300;
   margin-bottom: 30px;
+}
+
+.step div {
+  margin-top: 20px;
+}
+
+.search-result {
+  display: flex;
+  flex-direction: column;
 }

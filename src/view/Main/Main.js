@@ -12,9 +12,11 @@ class Main extends Component {
     isLogout: false,
     searchTerm: "",
     loading: false,
+    count: null,
     foundRepos: [],
     showModal: false,
-    selectedRepo: null
+    selectedRepo: null,
+    showList: false
   };
 
   componentDidMount() {
@@ -52,8 +54,10 @@ class Main extends Component {
         console.log("response", response);
         this.setState({
           loading: false,
+          count: response.data.total_count,
           foundRepos: response.data.items
         });
+        this.renderList();
       })
       .catch(error => {
         console.log("Error while searching!", error);
@@ -63,6 +67,12 @@ class Main extends Component {
         throw new Error(error);
       });
   };
+
+  renderList() {
+    this.setState({
+      showList: true
+    });
+  }
 
   showInfo = () => {
     this.setState({
@@ -77,7 +87,16 @@ class Main extends Component {
   };
 
   render() {
-    const { email, isLogout, loading, showModal, selectedRepo } = this.state;
+    const {
+      email,
+      isLogout,
+      loading,
+      showModal,
+      selectedRepo,
+      count,
+      showList,
+      foundRepos
+    } = this.state;
 
     let infomModal = null;
 
@@ -92,21 +111,38 @@ class Main extends Component {
       );
     }
 
+    if (showList) {
+      infomModal = (
+        <Modal show={true} modalClosed={this.closeInfoModal} top="15%">
+          <p style={{ color: "green", textAlign: "center" }}>
+            List of repositories found on the given term!
+          </p>
+          <div>
+            {foundRepos.map(repo => {
+              return (
+                <div>
+                  <span>{repo.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        </Modal>
+      );
+    }
     return (
       <div className="container">
         {isLogout === true ? <Redirect to="/logout" /> : null}
         {infomModal}
         <div className="signoutCont">
-          <Button clicked={this.signOut}> Sign Out</Button>
           <Button clicked={this.showInfo}> Info</Button>
+          <Button clicked={this.signOut}> Sign Out</Button>
         </div>
         <div className="greeting">
-          <span>Welcome, {email}</span>
+          <span>Welcome, {email}!</span>
         </div>
         <div className="app-container">
-          {loading === true ? <Spinner /> : null}
           <div className="app">
-            <div className="first-step">
+            <div className="step">
               <div>
                 <span>
                   Search on Github. Find what you want, just type in the search
@@ -120,13 +156,17 @@ class Main extends Component {
                 onChange={this.handleChange("searchTerm")}
               />
               <Button clicked={this.search}> Find repo!</Button>
+              {loading === true ? <Spinner /> : null}
             </div>
-            <div>List of repositories matched by the search.</div>
-            <div>
+            <div className="step">
               <div>
-                <span>Selected repository: {selectedRepo} </span>
+                <span>List of repositories matched by the search.</span>
+                <div className="search-result">
+                  <span>Count of items: {count}</span>
+                  <span>Selected repository: {selectedRepo} </span>
+                </div>
+                <Button clicked={this.signOut}> Check repo details</Button>
               </div>
-              <Button clicked={this.signOut}> Check repo details</Button>
             </div>
           </div>
         </div>

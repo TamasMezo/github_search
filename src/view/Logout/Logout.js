@@ -13,7 +13,7 @@ class Logout extends Component {
           <p> Thank you for choosing our service!</p>
         </div>
         <div className="image-container">
-          <img src={girhubPic} alt="Github Picture" />
+          <img src={girhubPic} alt="Github" />
         </div>
       </div>
     );
