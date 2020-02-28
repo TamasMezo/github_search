@@ -17,7 +17,10 @@ class Main extends Component {
     foundRepos: [],
     showModal: false,
     selectedRepo: null,
-    showList: false
+    showList: false,
+    issues: [],
+    checkIssues: false,
+    totalIssues: null
   };
 
   componentDidMount() {
@@ -69,6 +72,32 @@ class Main extends Component {
       });
   };
 
+  checkIssuesByRepo = () => {
+    let repo = this.state.selectedRepo;
+    let fullName = repo.full_name;
+    this.setState({
+      loading: true
+    });
+    gitHubActions
+      .issuesByRepo(fullName)
+      .then(response => {
+        console.log("herehehebbe", response);
+        this.setState({
+          loading: false,
+          issues: response.data.items,
+          totalIssues: response.data.total_count,
+          checkIssues: true
+        });
+      })
+      .catch(error => {
+        console.log("Error while searching!", error);
+        this.setState({
+          loading: false
+        });
+        throw new Error(error);
+      });
+  };
+
   renderList() {
     this.setState({
       showList: true
@@ -83,7 +112,8 @@ class Main extends Component {
 
   closeInfoModal = () => {
     this.setState({
-      showModal: false
+      showModal: false,
+      showList: false
     });
   };
 
@@ -103,7 +133,9 @@ class Main extends Component {
       selectedRepo,
       count,
       showList,
-      foundRepos
+      foundRepos,
+      checkIssues,
+      issues
     } = this.state;
 
     let infomModal = null;
@@ -122,27 +154,32 @@ class Main extends Component {
     if (showList) {
       infomModal = (
         <Modal show={true} modalClosed={this.closeInfoModal} top="15%">
-          <p style={{ color: "green", textAlign: "center" }}>
+          <p style={{ color: "rgb(71, 67, 67)", textAlign: "center" }}>
             List of repositories found on the given term!
           </p>
           <div>
-            {foundRepos.map(repo => {
-              return (
-                <RenderItem
-                  key={repo.id}
-                  repoName={repo.name}
-                  onClick={this.chooseRepo.bind(this, repo)}
-                />
-              );
-            })}
+            <ul className="list">
+              {foundRepos.map(repo => {
+                return (
+                  <RenderItem
+                    key={repo.id}
+                    repoName={repo.name}
+                    onClick={this.chooseRepo.bind(this, repo)}
+                  />
+                );
+              })}
+            </ul>
           </div>
         </Modal>
       );
     }
-    console.log("state", this.state);
+
     return (
       <div className="container">
         {isLogout === true ? <Redirect to="/logout" /> : null}
+        {checkIssues === true ? (
+          <Redirect to={{ pathname: "/issues", state: { issues: issues } }} />
+        ) : null}
         {infomModal}
         <div className="signoutCont">
           <Button clicked={this.showInfo}> Info</Button>
@@ -169,23 +206,37 @@ class Main extends Component {
               <Button clicked={this.search}> Find repo!</Button>
               {loading === true ? <Spinner /> : null}
             </div>
-            <div>Count of items: {count}</div>
-            <div className="step">
-              <div>
-                <span>Selected Repository:</span>
-                <div className="search-result">
-                  {selectedRepo && (
-                    <>
-                      <span>Selected repository data: </span>
-                      <span> Name: {selectedRepo.name}</span>
-                      <span> Owner: {selectedRepo.owner.login}</span>
-                      <span> Url: {selectedRepo.html_url}</span>
-                      <span> Forks: {selectedRepo.forks}</span>
-                      <span> Open issues: {selectedRepo.open_issues}</span>
-                    </>
-                  )}
-                </div>
-                <Button clicked={this.signOut}> Check repo details</Button>
+            <div style={{ height: "5%" }}>
+              Count of items:{" "}
+              {count ? count : "First search for something interesting above!"}
+            </div>
+            <div style={{ height: "70%" }}>
+              <div className="search-result">
+                {selectedRepo && (
+                  <>
+                    <span>Selected repository data: </span>
+                    <span> Name: {selectedRepo.name}</span>
+                    <span> Owner: {selectedRepo.owner.login}</span>
+                    <span> Url: {selectedRepo.html_url}</span>
+                    <span> Forks: {selectedRepo.forks}</span>
+                    <span> Open issues: {selectedRepo.open_issues}</span>
+                    <span>Description: {selectedRepo.description}</span>
+                    <Button>
+                      <a
+                        href={selectedRepo.html_url}
+                        target="_blank"
+                        className="link"
+                      >
+                        {" "}
+                        Check on Github{" "}
+                      </a>
+                    </Button>
+                    <Button clicked={this.checkIssuesByRepo}>
+                      {" "}
+                      Check repo issues{" "}
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

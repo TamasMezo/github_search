@@ -73,4 +73,19 @@
 .search-result {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 70%;
+  justify-content: space-between;
+}
+
+.list {
+  overflow: hidden;
+  height: 70vh;
+  overflow-y: scroll;
+  list-style: none;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
 }
