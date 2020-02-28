@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Issue.css";
 import RenderItem from "../../components/RenderItem/RenderItem";
 import Button from "../../components/Button/Button";
+import { Redirect } from "react-router-dom";
 
 class Issue extends Component {
   state = {
@@ -12,7 +13,8 @@ class Issue extends Component {
     openIssuesClicked: false,
     closedIssuesClicked: false,
     allIssues: true,
-    filterName: "All"
+    filterName: "All",
+    backToSearch: false
   };
   componentDidMount() {
     let allissue = this.props.location.state.issues;
@@ -56,6 +58,12 @@ class Issue extends Component {
     });
   };
 
+  handleRedirect = () => {
+    this.setState({
+      backToSearch: true
+    });
+  };
+
   render() {
     let {
       issues,
@@ -64,7 +72,8 @@ class Issue extends Component {
       openIssuesClicked,
       closedIssuesClicked,
       allIssues,
-      filterName
+      filterName,
+      backToSearch
     } = this.state;
 
     let content;
@@ -116,10 +125,18 @@ class Issue extends Component {
         </ul>
       );
     }
+
+    if (backToSearch) {
+      content = <Redirect to="/main" />;
+    }
     console.log("state", this.state);
     return (
       <div className="i-container">
-        <div className="label-continer">
+        <div className="signoutCont">
+          <Button clicked={this.showInfo}> Info</Button>
+          <Button clicked={this.signOut}> Sign Out</Button>
+        </div>
+        <div className="i-label-continer">
           <p> {filterName} Issues!</p>
         </div>
         <div className="image-container">
@@ -128,6 +145,7 @@ class Issue extends Component {
             <Button clicked={this.showOpenIssues}> Open Issues </Button>
             <Button clicked={this.showClosedIssues}> Closed Issues </Button>
             <Button clicked={this.reset}> Reset Filters </Button>
+            <Button clicked={this.handleRedirect}> Back to seach </Button>
           </div>
         </div>
       </div>

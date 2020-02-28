@@ -9,3 +9,14 @@
   top: 0;
   height: 105vh;
 }
+
+.i-label-continer {
+  padding: 30px;
+}
+
+.i-label-continer {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: sans-serif;
+}
