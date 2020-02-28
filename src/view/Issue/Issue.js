@@ -3,6 +3,7 @@ import "./Issue.css";
 import RenderItem from "../../components/RenderItem/RenderItem";
 import Button from "../../components/Button/Button";
 import { Redirect } from "react-router-dom";
+import { Doughnut } from "react-chartjs-2";
 
 class Issue extends Component {
   state = {
@@ -129,7 +130,21 @@ class Issue extends Component {
     if (backToSearch) {
       content = <Redirect to="/main" />;
     }
-    console.log("state", this.state);
+
+    let pieChartData;
+    if (openIssues.length > 0 && closedIssues.length > 0) {
+      pieChartData = {
+        labels: ["Open", "Closed"],
+        datasets: [
+          {
+            data: [openIssues.length, closedIssues.length],
+            backgroundColor: ["#8A9CF8", "#1D8D9C"],
+            hoverBackgroundColor: ["#8A9CF8", "#1D8D9C"]
+          }
+        ]
+      };
+    }
+
     return (
       <div className="i-container">
         <div className="signoutCont">
@@ -140,7 +155,16 @@ class Issue extends Component {
           <p> {filterName} Issues!</p>
         </div>
         <div className="image-container">
-          <div> {issues.length > 0 ? content : "Loading"}</div>
+          <div className="data-container">
+            <div className="issues-container">
+              {" "}
+              {issues.length > 0 ? content : "Loading"}
+            </div>
+            <div className="issues-container">
+              <p>Open VS Closed issues</p>
+              <Doughnut data={pieChartData} />
+            </div>
+          </div>
           <div>
             <Button clicked={this.showOpenIssues}> Open Issues </Button>
             <Button clicked={this.showClosedIssues}> Closed Issues </Button>
