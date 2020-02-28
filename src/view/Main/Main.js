@@ -147,8 +147,10 @@ class Main extends Component {
     if (showModal) {
       infomModal = (
         <Modal show={true} modalClosed={this.closeInfoModal} top="15%">
-          <p style={{ color: "red", textAlign: "center" }}>How does it work?</p>
-          <p style={{ color: "red" }}>
+          <p style={{ color: "#8A9CF8", textAlign: "center" }}>
+            How does it work?
+          </p>
+          <p style={{ color: "#8A9CF8" }}>
             1. step: Search a given term. We will list you the related repos!
           </p>
         </Modal>
