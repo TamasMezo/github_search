@@ -14,20 +14,5 @@ export const signUp = (email, password, name, isSignUp) => {
     name: name,
     returnSecureToken: true
   };
-  axios
-    .post(url, authData)
-    .then(response => {
-      console.log("response", response);
-      const expirationDate = new Date(
-        new Date().getTime() + response.data.expiresIn * 1000
-      );
-      localStorage.setItem("token", response.data.idToken);
-      localStorage.setItem("expirationDate", expirationDate);
-      localStorage.setItem("userId", response.data.localId);
-      localStorage.setItem("email", email);
-    })
-    .catch(error => {
-      console.log("Error while authenticate!", error);
-      throw new Error(error);
-    });
+  return axios.post(url, authData);
 };

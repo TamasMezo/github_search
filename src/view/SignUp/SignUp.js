@@ -54,11 +54,29 @@ class SignUp extends Component {
         emailWarning: false,
         passwordWarning: false,
         nameWarning: false,
-        loading: true,
-        redirectToMain: true
+        loading: true
       });
       let signUp = true;
-      actions.signUp(form.email, form.password, form.name, signUp);
+      actions
+        .signUp(form.email, form.password, form.name, signUp)
+        .then(response => {
+          console.log("response", response);
+          const expirationDate = new Date(
+            new Date().getTime() + response.data.expiresIn * 1000
+          );
+          localStorage.setItem("token", response.data.idToken);
+          localStorage.setItem("expirationDate", expirationDate);
+          localStorage.setItem("userId", response.data.localId);
+          localStorage.setItem("email", form.email);
+          this.setState({
+            redirectToMain: true,
+            loading: false
+          });
+        })
+        .catch(error => {
+          console.log("Error while authenticate!", error);
+          alert("Email and/or password is wrong!");
+        });
     }
   };
 

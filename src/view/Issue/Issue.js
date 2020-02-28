@@ -152,16 +152,17 @@ class Issue extends Component {
           <Button clicked={this.signOut}> Sign Out</Button>
         </div>
         <div className="i-label-continer">
-          <p> {filterName} Issues!</p>
+          {issues.length === 0 ? (
+            <p> No issues found! Maybe try to find a bigger project! </p>
+          ) : (
+            <p> {filterName} Issues!</p>
+          )}
         </div>
         <div className="image-container">
           <div className="data-container">
+            <div className="issues-container"> {content}</div>
             <div className="issues-container">
-              {" "}
-              {issues.length > 0 ? content : "Loading"}
-            </div>
-            <div className="issues-container">
-              <p>Open VS Closed issues</p>
+              {issues.length === 0 ? null : <p>Open VS Closed issues</p>}
               <Doughnut data={pieChartData} />
             </div>
           </div>

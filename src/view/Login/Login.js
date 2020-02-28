@@ -49,10 +49,25 @@ class Login extends Component {
         redirectToMain: true
       });
       let signUp = false;
-      actions.signUp(form.email, form.password, signUp);
-      this.setState({
-        redirectToMain: true
-      });
+      actions
+        .signUp(form.email, form.password, signUp)
+        .then(response => {
+          console.log("response", response);
+          const expirationDate = new Date(
+            new Date().getTime() + response.data.expiresIn * 1000
+          );
+          localStorage.setItem("token", response.data.idToken);
+          localStorage.setItem("expirationDate", expirationDate);
+          localStorage.setItem("userId", response.data.localId);
+          localStorage.setItem("email", form.email);
+          this.setState({
+            redirectToMain: true
+          });
+        })
+        .catch(error => {
+          console.log("Error while authenticate!", error);
+          alert("Email and/or password is wrong!");
+        });
     }
   };
 
