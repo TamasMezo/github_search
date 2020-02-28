@@ -6,6 +6,7 @@ import Login from "./view/Login/Login";
 import SignUp from "./view/SignUp/SignUp";
 import Main from "./view/Main/Main";
 import Logout from "./view/Logout/Logout";
+import Issues from "./view/Issue/Issue";
 
 class App extends Component {
   state = {
@@ -30,6 +31,7 @@ class App extends Component {
         <Route path="/" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/logout" exact component={Logout} />
+        <Route path="/issues" exact component={Issues} />
         <Redirect to="/" />
       </Switch>
     );
@@ -40,6 +42,7 @@ class App extends Component {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/main" exact component={Main} />
           <Route path="/logout" exact component={Logout} />
+          <Route path="/issues" exact component={Issues} />
           <Redirect to="/" />
         </Switch>
       );

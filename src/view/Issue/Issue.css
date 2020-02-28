@@ -1,0 +1,11 @@
+.i-container {
+  background: rgb(174, 181, 238);
+  background: radial-gradient(
+    circle,
+    rgba(174, 181, 238, 1) 0%,
+    rgba(56, 55, 66, 0.9318102240896359) 100%
+  );
+  text-align: center;
+  top: 0;
+  height: 105vh;
+}
