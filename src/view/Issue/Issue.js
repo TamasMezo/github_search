@@ -11,7 +11,8 @@ class Issue extends Component {
     openIssues: [],
     openIssuesClicked: false,
     closedIssuesClicked: false,
-    allIssues: true
+    allIssues: true,
+    filterName: "All"
   };
   componentDidMount() {
     let allissue = this.props.location.state.issues;
@@ -33,14 +34,16 @@ class Issue extends Component {
   showOpenIssues = () => {
     this.setState({
       openIssuesClicked: true,
-      closedIssuesClicked: false
+      closedIssuesClicked: false,
+      filterName: "Open"
     });
   };
 
   showClosedIssues = () => {
     this.setState({
       closedIssuesClicked: true,
-      openIssuesClicked: false
+      openIssuesClicked: false,
+      filterName: "Closed"
     });
   };
 
@@ -48,7 +51,8 @@ class Issue extends Component {
     this.setState({
       closedIssuesClicked: false,
       openIssuesClicked: false,
-      allIssues: true
+      allIssues: true,
+      filterName: "All"
     });
   };
 
@@ -59,7 +63,8 @@ class Issue extends Component {
       closedIssues,
       openIssuesClicked,
       closedIssuesClicked,
-      allIssues
+      allIssues,
+      filterName
     } = this.state;
 
     let content;
@@ -115,7 +120,7 @@ class Issue extends Component {
     return (
       <div className="i-container">
         <div className="label-continer">
-          <p> {/* {filterName} */} Issues!</p>
+          <p> {filterName} Issues!</p>
         </div>
         <div className="image-container">
           <div> {issues.length > 0 ? content : "Loading"}</div>
