@@ -49,6 +49,10 @@ class Main extends Component {
 
   search = () => {
     let { searchTerm } = this.state;
+    if (searchTerm.length === 0) {
+      alert("Type the seach term first!");
+      return;
+    }
     this.setState({
       loading: true
     });
