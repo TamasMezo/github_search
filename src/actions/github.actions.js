@@ -5,8 +5,7 @@ export const searchRepo = queryParams => {
   return axios.get(url + queryParams);
 };
 
-export const issuesByRepo = (userName, repoName) => {
-  let url =
-    "https://api.github.com/search/issues?q=repo:" + userName + "/" + repoName;
+export const issuesByRepo = fullName => {
+  let url = "https://api.github.com/search/issues?q=repo:" + fullName;
   return axios.get(url);
 };
