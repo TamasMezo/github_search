@@ -3,11 +3,11 @@ import "./RenderItem.css";
 
 const RenderItem = props => {
   return (
-    <div>
+    <li>
       <button className="render-item" onClick={props.onClick}>
         {props.repoName}
       </button>
-    </div>
+    </li>
   );
 };
 
